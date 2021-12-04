@@ -1,5 +1,6 @@
 from rich import print
 from advent.tools import *
+from collections import deque
 
 """
 Giant Squid
@@ -29,11 +30,9 @@ def columns(matrix: List[List[object]]):
 def wins(board: Board, called: List[str]):
     for row in board:
         if set(row).issubset(set(called)):
-            print('Found winning board -> row {set(row) & set(called)}')
             return True
     for column in columns(board):
         if set(column).issubset(set(called)):
-            print('Found winning board -> column {set(column) & set(called)}')
             return True
 
 
@@ -55,6 +54,19 @@ def day4_1(puzzle_input):
 
 def day4_2(puzzle_input):
     numbers, boards = puzzle_input
+    winning_boards = set()
+    for i in range(5, len(numbers)):
+        called_numbers = numbers[:i + 1]
+        for board_number, board in enumerate(boards):
+            if board_number in winning_boards:
+                continue
+            if wins(board, called_numbers):
+                winning_number = int(called_numbers[-1])
+                winning_boards.add(board_number)
+                if len(winning_boards) == 100:
+                    final_board = boards[board_number]
+                    final_score = winning_number * board_score(final_board, called_numbers)
+                    return final_score
     return None
 
 
@@ -69,23 +81,5 @@ def bingo_game(puzzle_input: List[List[str]]) -> Tuple[BingoNumbers, Board]:
 
 if __name__ == '__main__':
     in4 = bingo_game(data(4, str.splitlines, sep='\n\n'))
-
-    test_numbers = [7, 4, 9, 5, 11, 17, 23, 2, 0, 14, 21, 24, 10, 16, 13, 6, 15, 25, 12, 22, 18, 20, 8, 19, 3, 26, 1]
-    test_boards = [
-                      [3, 15, 0, 2, 22],
-                      [9, 18, 13, 17, 5],
-                      [19, 8, 7, 25, 23],
-                      [20, 11, 10, 24, 4],
-                      [14, 21, 16, 12, 6]
-                  ], [
-                      [14, 21, 17, 24, 4],
-                      [10, 16, 15, 9, 19],
-                      [18, 8, 23, 26, 20],
-                      [22, 11, 13, 6, 5],
-                      [2, 0, 12, 3, 7]
-                  ]
-
-    print(day4_1((test_numbers, test_boards)))
-
     with binding(**globals()):
-        print(do(4))
+        print(do(4, 60368, 17435))
