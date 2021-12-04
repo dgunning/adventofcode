@@ -1,6 +1,4 @@
-from rich import print
 from advent.tools import *
-from collections import deque
 
 """
 Giant Squid
