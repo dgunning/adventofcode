@@ -1,3 +1,4 @@
+import itertools
 import operator
 import re
 from contextlib import contextmanager
@@ -14,8 +15,9 @@ def data(day: int, parser=str, sep='\n') -> list:
         return list(map(parser, sections))
 
 
-def do(day, g, *answers) -> List[int]:
+def do(day, *answers) -> List[int]:
     "E.g., do(3) returns [day3_1(in3), day3_2(in3)]. Verifies `answers` if given."
+    g = globals()
     got = []
     for part in (1, 2):
         fname = f'day{day}_{part}'
@@ -102,3 +104,8 @@ def atom(text: str, types=(int, str)):
             return typ(text)
         except ValueError:
             pass
+
+
+def transpose(lst: List[List[object]], fillvalue=None):
+    "Transpose a list of lists"
+    return list(map(list, itertools.zip_longest(*lst, fillvalue=fillvalue)))
