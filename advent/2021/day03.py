@@ -57,4 +57,5 @@ if __name__ == '__main__':
                   '00010',
                   '01010']
     # print(day3_2(test_input))
-    print(do(3, globals()))
+    with binding(**globals()):
+        print(do(3, 2972336, 3368358))

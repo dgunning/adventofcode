@@ -58,5 +58,5 @@ if __name__ == '__main__':
         ('down', 8),
         ('forward', 2)
     ]
-
-    print(do(2, globals()), 1698735, 1594785890)
+    with binding(**globals()):
+        print(do(2, 1698735, 1594785890))
