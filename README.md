@@ -32,6 +32,54 @@ def day1_2(nums):
 ```
 
 ## Day 2
+Given a series of navigation directions, find the final position of the submarine.
+
+```python
+Instruction = Tuple[str, int]
+Course = List[Instruction]
+
+```
+Then we navigate the course and return the multiplication of the final height and depth
+
+```python
+def navigate(course: Course, loc: Point = Point(0, 0)):
+    # Follow the course for the submarine and return the horizontal and vertical positions
+    for direction, n in course:
+        if direction == 'forward':
+            loc.x += n
+        elif direction == 'down':
+            loc.y += n
+        elif direction == 'up':
+            loc.y -= n
+
+    return loc
+
+
+def day2_1(course: Course):
+    loc = navigate(course)
+    return loc.x * loc.y
+```
+For part 2 the navigation changes to account for the **aim** of the submarine.
+
+```python
+def navigate_with_aim(course: Course, loc: Point = Point(0, 0, 0)):
+    # Follow the course for the submarine and return the horizontal and vertical positions
+    for direction, n in course:
+        if direction == 'forward':
+            loc.x += n
+            loc.y += n * loc.aim
+        elif direction == 'down':
+            loc.aim += n
+        elif direction == 'up':
+            loc.aim -= n
+
+    return loc
+
+
+def day2_2(course: Course):
+    loc = navigate_with_aim(course)
+    return loc.x * loc.y
+```
 
 ## Day 3
 
