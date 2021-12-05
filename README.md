@@ -128,7 +128,68 @@ def day3_2(nums):
     return int(o2_rating, 2) * int(co2_rating, 2)
 ```
 ## Day 4
+Day 4 was bingo day, and we need to find the score of a winning bingo board
 
+First we need to parse a bingo game from the input
+```python
+def bingo_game(puzzle_input: List[List[str]]) -> Tuple[BingoNumbers, Board]:
+    numbers = list(atoms(puzzle_input[0][0], sep=','))
+    boards = [[list(map(int, row.split()))
+               for row in raw_board]
+              for raw_board in puzzle_input[1:]]
+    print(f'There are {len(set(numbers))} numbers and {len(boards)} boards')
+    return numbers, boards
+```
+Then there are a couple of functions to find if a board wins, and the score of a board.
+```python
+def wins(board: Board, called: List[str]):
+    for row in board:
+        if set(row).issubset(set(called)):
+            return True
+    for column in columns(board):
+        if set(column).issubset(set(called)):
+            return True
+
+
+def board_score(board, called):
+    return sum([sum([int(c)
+                     for c in row if c not in called])
+                for row in board])
+
+```
+
+In **part 1**, we just play the game and return the score of the winning board.
+
+```python
+def day4_1(puzzle_input):
+    numbers, boards = puzzle_input
+    for i in range(5, len(numbers)):
+        called_numbers = numbers[:i + 1]
+        for board in boards:
+            if wins(board, called_numbers):
+                winning_number = int(called_numbers[-1])
+                return winning_number * board_score(board, called_numbers)
+```
+
+For **part 2** we need the last winning board
+```python
+def day4_2(puzzle_input):
+    numbers, boards = puzzle_input
+    winning_boards = set()
+    for i in range(5, len(numbers)):
+        called_numbers = numbers[:i + 1]
+        for board_number, board in enumerate(boards):
+            if board_number in winning_boards:
+                continue
+            if wins(board, called_numbers):
+                winning_number = int(called_numbers[-1])
+                winning_boards.add(board_number)
+                if len(winning_boards) == 100:
+                    final_board = boards[board_number]
+                    final_score = winning_number * board_score(final_board, called_numbers)
+                    return final_score
+    return None
+```
 ## Day 5
 
 Given a list of lines e.g. count how many points on the line overlap. 
