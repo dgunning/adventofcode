@@ -19,6 +19,6 @@ def day1_2(nums):
 
 
 if __name__ == '__main__':
-    in1: Set[int] = list(data(1, int))
+    in1: list[int] = list(data(1, int))
     with binding(**globals()):
         print(do(1, 1288, 1311))
