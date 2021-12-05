@@ -19,7 +19,9 @@ The solutions are influenced by Peter Norvig's solutions from 2020. You will fin
 ## Day 5
 
 Given a list of lines e.g. count how many points on the line overlap. 
-A line is specified as a pair of points e.g. **645,570** -> **517,570**
+A line is specified as a pair of points 
+
+e.g. **645,570** -> **517,570**
 
 The easiest way to model the problem is as a **Line** class composed of a pair of **Point**s
 ```python
