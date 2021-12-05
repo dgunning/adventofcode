@@ -8,7 +8,28 @@ The solutions are influenced by Peter Norvig's solutions from 2020. You will fin
 # Solutions
 
 ## Day 1
+Given a list of integers, count how many integers are larger than the previous one.
 
+For **part 1** the solution is just looking at each number and comparing it with the previous number.
+
+For **part 2** the solution is for each number looking back at a window of size 3.
+```python
+def day1_1(nums):
+    """How many measurements are larger than the previous measurement?"""
+    return quantify(map(lambda i: nums[i] > nums[i - 1],
+                        range(1, len(nums))
+                        )
+                    )
+
+
+def day1_2(nums):
+    "How many sliding window sums are greater than the previous"
+    return quantify(map(lambda i:
+                        sum(nums[i - 3:i]) > sum(nums[i - 4: i - 1]),
+                        range(4, len(nums) + 1)
+                        )
+                    )
+```
 
 ## Day 2
 
@@ -19,6 +40,7 @@ The solutions are influenced by Peter Norvig's solutions from 2020. You will fin
 ## Day 5
 
 Given a list of lines e.g. count how many points on the line overlap. 
+
 A line is specified as a pair of points 
 
 e.g. **645,570** -> **517,570**
