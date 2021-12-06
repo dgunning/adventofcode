@@ -253,6 +253,7 @@ def day5_1(vents):
                     lambda item: item[1] > 1
                     )
 
+
 ```
 For part 2, we do the same without filtering.
 
@@ -297,4 +298,12 @@ def simulate(timers, days=80):
         day_counts = copy(next_day_counts)
         day += 1
     return sum(list(day_counts.values()))
+
+
+def day6_1(timers):
+    return simulate(timers, 80)
+
+
+def day6_2(timers):
+    return simulate(timers, 256)
 ```
