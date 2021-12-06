@@ -1,5 +1,6 @@
 # Advent of Code
 
+## 2021
 In this repo I implement the solutions to Google Advent of Code competition.
 
 ## References
@@ -263,4 +264,37 @@ def day5_2(vents):
                              ]).items(),
                     lambda item: item[1] > 1
                     )
+```
+
+## Day 6
+
+On day 6 we need to count the total number of fish after n days given that each fish can spawn another
+fish every 6 days. 
+
+The main challenge was handling exponential growth. So instead of tracking the fish, we need to track the
+counts of fish for each day.
+
+1. How many fish are there after **80** days of exponential growth
+2. How many fish are there after **256** days of exponential growth
+
+The counts are tracked in a pair of dicts. 
+- One dict for the current day
+- A second dict for the next day count
+
+
+```python
+def simulate(timers, days=80):
+    day_counts = dict(Counter(timers))
+
+    day = 0
+    while day < days:
+        next_day_counts: Dict[int, int] = defaultdict(int)
+        for f in range(1, 9):
+            next_day_counts[f - 1] += day_counts.get(f, 0)
+        next_day_counts[6] += day_counts.get(0, 0)
+        next_day_counts[8] += day_counts.get(0, 0)
+
+        day_counts = copy(next_day_counts)
+        day += 1
+    return sum(list(day_counts.values()))
 ```
