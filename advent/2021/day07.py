@@ -1,5 +1,5 @@
 from advent.tools import *
-from statistics import mean, median
+from statistics import mean
 
 
 def day7_1(positions):

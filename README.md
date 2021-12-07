@@ -307,3 +307,42 @@ def day6_1(timers):
 def day6_2(timers):
     return simulate(timers, 256)
 ```
+
+## Day 7
+Given a list of positions what is the minimum number of it would take to move each to the same location?
+
+### Sample positions
+```python
+16,1,2,0,4,2,7,1,2,14
+```
+This means there's a crab with horizontal position 16, a crab with horizontal position 1, and so on.
+
+The point to which the crabs should all move which would result in the minimum moves for all is **2**
+
+For the solution, we start at the minimum position, then check the sum of the moves for all crabs.
+
+We shouldn't check every position, instead we stop the loop at either the **mean** 
+or the **middle** of the list
+
+```python
+from statistics import mean
+
+def day7_1(positions):
+    target = max((len(positions) // 2) + 1, int(mean(positions)) + 1)
+    return min([
+        sum([abs(crab - p)
+             for crab in positions]
+            )
+        for p in range(min(positions), target)])
+
+
+def day7_2(positions):
+    target = max((len(positions) // 2) + 1, int(mean(positions)) + 1)
+    return min([
+        sum([sum(range(abs(crab - p) + 1))
+             for crab in positions]
+            )
+        for p in range(min(positions), target)]
+    
+
+```
