@@ -10,6 +10,7 @@ def day8_1(puzzle_input: List[Tuple]):
 
 
 def day8_2(puzzle_input: List[Tuple]):
+    # Store the digits that we know the lengths of
     digit_length_map = {2: '1', 3: '7', 4: '4', 7: '8'}
 
     decoded_outputs = []
@@ -24,15 +25,19 @@ def day8_2(puzzle_input: List[Tuple]):
             outs = set(output)
             if len(output) == 5:
                 if outs.issuperset(codes['7']):
+                    # 3 contains all the segments in 7
                     digits += '3'
                 elif outs.issuperset(codes['4'] - codes['1']):
+                    # 5 contains the segents in 4 not in 1
                     digits += '5'
                 else:
                     digits += '2'
             elif len(output) == 6:
                 if outs.issuperset(codes['4']):
+                    # 9 contains the segments in 4
                     digits += '9'
                 elif len(outs & codes['1']) == 1:
+                    # 6 contains one segment of 1
                     digits += '6'
                 else:
                     digits += '0'
