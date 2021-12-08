@@ -14,9 +14,9 @@ def day8_2(puzzle_input: List[Tuple]):
     digit_length_map = {2: '1', 3: '7', 4: '4', 7: '8'}
 
     decoded_outputs = []
-    for segments, outputs in puzzle_input:
+    for signals, outputs in puzzle_input:
         codes = {digit_length_map.get(len(o)): set(o)
-                 for o in list(segments) + list(outputs)
+                 for o in list(signals) + list(outputs)
                  if len(o) in digit_length_map
                  }
 
