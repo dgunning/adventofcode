@@ -349,8 +349,13 @@ def day7_2(positions):
 ## Day 8
 
 ### Objective
-Decode stings representing digit segments into the corresponding digits
+A seven segment display is a common type of electronic display that uses
+seven electronic segments to display a digit. 
 
+![Seven segment display](advent/2021/sevensegment.png)
+
+For this challenge, the signals were messed up, and the solution involved decoding the
+signals.
 
 ### Part 1
 How many times do the digits 1, 4, 7 or 8 appear. 
