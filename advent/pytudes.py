@@ -8,6 +8,12 @@ from collections import Set
 from typing import Tuple, List, Union
 
 
+def test_data(test_input: str, parser=str, sep='\n') -> list:
+    "Split the test data into sections separated by `sep`, and apply `parser` to each"
+    sections = test_input.strip().split(sep)
+    return list(map(parser, sections))
+
+
 def data(day: int, parser=str, sep='\n') -> list:
     "Split the day's input file into sections separated by `sep`, and apply `parser` to each."
     with open(f'input/day{day:02}.txt') as f:
